@@ -1,0 +1,19 @@
+<div class='input-wrapper {{className}}'>
+    <input
+        type='{{type}}'
+        class='input {{className}}'
+        name='{{name}}'
+        value='{{value}}'
+        placeholder=''
+        id='{{id}}'
+        autocomplete='off'
+        {{#if disabled}}
+            readonly
+        {{/if}}
+    >
+    {{#if label}}
+        <label class='label {{className}}' for='{{id}}'>
+            <span class='label__text {{className}}'>{{label}}</span>
+        </label>
+    {{/if}}
+</div>

@@ -1,0 +1,46 @@
+.input-wrapper {
+    width: 100%;
+    min-height: 42px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.input {
+    width: 100%;
+    padding: 0 0 3px;
+
+    border: unset;
+    border-bottom: 1px solid var(--secondaryColor);
+    outline: none;
+
+    color: var(--primaryColor);
+    font-size: 16px;
+
+    &:focus + .label {
+        top: 0;
+        font-size: 12px;
+    }
+
+    &:not(:placeholder-shown) + .label {
+        top: 0;
+        font-size: 12px;
+    }
+}
+
+.label {
+    position: absolute;
+    top: 21px;
+
+    font-size: 16px;
+    color: var(--grayColor);
+
+    transition: top .3s linear, font-size .3s linear;
+
+    &__text {
+        font-weight: inherit;
+    }
+}
