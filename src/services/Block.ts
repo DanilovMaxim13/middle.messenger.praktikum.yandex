@@ -51,7 +51,6 @@ class Block<Props extends Record<string, any>> {
       } else if (Array.isArray(value)) {
         lists[key] = value;
       } else {
-        // @ts-ignore
         props[key] = value;
       }
     });
