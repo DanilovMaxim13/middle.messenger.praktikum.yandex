@@ -18,5 +18,8 @@
 		"resolveJsonModule": true,
 		"strictNullChecks": true
 	},
-	"include": ["src"]
+	"include": ["src"],
+	"exclude": [
+		"postcss.config.js"
+	]
 }
