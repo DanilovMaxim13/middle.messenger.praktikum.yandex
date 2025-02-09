@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: 42px;
+	padding-top: 20px;
     position: relative;
     width: 100%;
 
@@ -14,26 +14,6 @@
 			color: red;
 		}
 	}
-}
-
-.input {
-    border: unset;
-    border-bottom: 1px solid var(--secondary-color);
-	color: inherit;
-    font-size: 16px;
-    outline: none;
-    padding: 0 0 3px;
-    width: 100%;
-
-    &:focus + .label {
-        font-size: 12px;
-        top: 0;
-    }
-
-    &:not(:placeholder-shown) + .label {
-        font-size: 12px;
-        top: 0;
-    }
 }
 
 .label {
@@ -52,6 +32,4 @@
 	color: inherit;
 	font-size: 12px;
 	margin: 2px 0;
-	position: absolute;
-	top: 100%;
 }

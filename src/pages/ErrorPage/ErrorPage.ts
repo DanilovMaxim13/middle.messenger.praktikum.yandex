@@ -7,25 +7,25 @@ import { ErrorPageTemplate } from './index';
 import './ErrorPage.style.pcss';
 
 interface ErrorPageProps {
-  errorCode: string;
-  errorDescription: string;
-  NavBar: NavBarComp;
+    errorCode: string;
+    errorDescription: string;
+    NavBar: NavBarComp;
 }
 
 export default class ErrorPage extends Block<ErrorPageProps & { Link: Link }> {
-  constructor({ errorCode, errorDescription, NavBar }: ErrorPageProps) {
-    super({
-      Link: new Link({
-        href: '#',
-        linkLabel: 'Вернуться к чатам',
-      }),
-      NavBar,
-      errorCode,
-      errorDescription,
-    });
-  }
+    constructor({ errorCode, errorDescription, NavBar }: ErrorPageProps) {
+        super({
+            Link: new Link({
+                href: '#',
+                linkLabel: 'Вернуться к чатам',
+            }),
+            NavBar,
+            errorCode,
+            errorDescription,
+        });
+    }
 
-  render() {
-    return ErrorPageTemplate;
-  }
+    render() {
+        return ErrorPageTemplate;
+    }
 }

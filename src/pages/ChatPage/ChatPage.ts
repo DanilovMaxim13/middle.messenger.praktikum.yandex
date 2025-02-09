@@ -7,24 +7,26 @@ import { ChatPageTemplate } from './index';
 import './ChatPage.style.pcss';
 
 interface ChatPageProps {
-  NavBar: NavBarComp;
-  ChatCards: ChatCardProps[];
+    NavBar: NavBarComp;
+    ChatCards: ChatCardProps[];
 }
 
 interface ChatPageBlockProps {
-  NavBar: NavBarComp;
-  ChatCards: ChatCard[];
+    NavBar: NavBarComp;
+    ChatCards: ChatCard[];
 }
 
 export default class ChatPage extends Block<ChatPageBlockProps> {
-  constructor({ NavBar, ChatCards }: ChatPageProps) {
-    super({
-      NavBar,
-      ChatCards: ChatCards.map(chatCardsProps => new ChatCard(chatCardsProps)),
-    });
-  }
+    constructor({ NavBar, ChatCards }: ChatPageProps) {
+        super({
+            NavBar,
+            ChatCards: ChatCards.map(
+                chatCardsProps => new ChatCard(chatCardsProps)
+            ),
+        });
+    }
 
-  render() {
-    return ChatPageTemplate;
-  }
+    render() {
+        return ChatPageTemplate;
+    }
 }
