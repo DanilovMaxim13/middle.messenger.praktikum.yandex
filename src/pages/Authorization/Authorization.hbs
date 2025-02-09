@@ -1,13 +1,11 @@
 <main class='page'>
-    {{> NavBar}}
+    {{{NavBar}}}
     <section class='auth-section'>
         <h1 class='auth-section__title heading'>{{title}}</h1>
         <form class='auth-section__form form'>
-            {{#each inputs}}
-                {{> Input }}
-            {{/each}}
-            {{> Button text=button.text className='auth-section__submit-button' }}
-            {{> Link href=link.href linkLabel=link.linkLabel }}
+            {{{Inputs}}}
+			{{{Button}}}
+			{{{Link}}}
         </form>
     </section>
 </main>

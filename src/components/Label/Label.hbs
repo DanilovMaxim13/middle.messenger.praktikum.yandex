@@ -1,0 +1,13 @@
+<div class='input-wrapper validate-Error {{className}}'>
+    {{{Input}}}
+    {{#if label}}
+        <label class='label {{className}}' for='{{id}}'>
+            <span class='label__text {{className}}'>{{label}}</span>
+        </label>
+    {{/if}}
+	{{#if errorMessage}}
+		<p class='error-message {{className}}'>
+			{{errorMessage}}
+		</p>
+	{{/if}}
+</div>
