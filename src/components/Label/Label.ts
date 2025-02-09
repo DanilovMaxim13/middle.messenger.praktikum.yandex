@@ -28,12 +28,12 @@ export default class Label extends Block<LabelProps> {
         name,
         type,
         value,
-        onFocus: () => {
-          console.log(33);
-        },
-        onBlur: (e) => {
-          this.isValid(e);
-        },
+        // onFocus: () => {
+        //   console.log(33);
+        // },
+        // onBlur: (e) => {
+        //   this.isValid(e);
+        // },
       }),
       label,
       className,
@@ -42,14 +42,14 @@ export default class Label extends Block<LabelProps> {
     });
   }
 
-  isValid(e): void {
-    if (e.target.value === '1') {
-      this.setProps({
-        ...this.props,
-        errorMessage: '1',
-      });
-    }
-  }
+  // isValid(e): void {
+  //   if (e.target.value === '1') {
+  //     this.setProps({
+  //       ...this.props,
+  //       errorMessage: '1',
+  //     });
+  //   }
+  // }
 
   // isValid(): void {
   // 	let elementValidation

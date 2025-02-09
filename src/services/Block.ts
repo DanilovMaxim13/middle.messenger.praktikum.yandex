@@ -42,7 +42,7 @@ class Block<Props extends Record<string, any>> {
 
   private getChildren(propsAndChildren: Props & { children?: Children; lists?: Lists }): { children: Children, props: Props, lists: Lists } {
     const children: Children = {};
-    const props: Partial<Props> = {};
+    const props: any = {};
     const lists: Lists = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -107,7 +107,7 @@ class Block<Props extends Record<string, any>> {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: Props = {} as Props, newProps: Props = {} as Props): void {
+  private _componentDidUpdate(oldProps: any = {}, newProps: any = {}): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
