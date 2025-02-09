@@ -1,20 +1,13 @@
 <main class='page'>
-    {{> NavBar}}
+    {{{NavBar}}}
     <section class='profile-section'>
-        {{> Avatar src='./AddAvatar.png' className='profile-section__avatar'}}
-        <div class='profile-section__layout'>
-            {{#each inputs}}
-                {{> Input className='profile-section__input'}}
-            {{/each}}
-        </div>
-        {{#if isEditing}}
-            {{> Button text='Сохранить'}}
-        {{^}}
-            <div class='profile-section__layout'>
-                {{> Link href='/ChatPage' className='page-link profile-section__link' linkLabel='Изменить данные'}}
-                {{> Link href='/ChatPage' className='page-link profile-section__link' linkLabel='Изменить пароль'}}
-                {{> Link href='/ChatPage' className='page-link profile-section__link profile-section__link_red' linkLabel='Выйти'}}
-            </div>
-        {{/if}}
+        {{{Avatar}}}
+		<div class='profile-section__layout'>
+			{{{Inputs}}}
+		</div>
+		<div class='profile-section__layout'>
+			{{{Links}}}
+		</div>
+		{{{Button}}}
     </section>
 </main>

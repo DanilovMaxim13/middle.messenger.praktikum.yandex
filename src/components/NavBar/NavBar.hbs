@@ -1,28 +1,5 @@
 <nav class='navigation-bar'>
     <ul class='navigation-bar__list'>
-        <li>
-            {{> Link href='/404' className='page-link' linkLabel='Ошибка 404'}}
-        </li>
-        <li>
-            {{> Link href='/500' className='page-link' linkLabel='Ошибка 500'}}
-        </li>
-        <li>
-            {{> Link href='/ChatPage' className='page-link' linkLabel='Чаты'}}
-        </li>
-        <li>
-            {{> Link href='/Profile' className='page-link' linkLabel='Профиль'}}
-        </li>
-        <li>
-            {{> Link href='/EditProfile' className='page-link' linkLabel='Изменение данных'}}
-        </li>
-        <li>
-            {{> Link href='/EditPassword' className='page-link' linkLabel='Изменение пароля'}}
-        </li>
-        <li>
-            {{> Link href='/SignIn' className='page-link' linkLabel='Вход'}}
-        </li>
-        <li>
-            {{> Link href='/SignUp' className='page-link' linkLabel='Регистрация'}}
-        </li>
+        {{{NavBarLinks}}}
     </ul>
 </nav>
