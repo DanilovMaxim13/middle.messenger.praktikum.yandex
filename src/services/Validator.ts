@@ -45,7 +45,7 @@ class Validator {
 			}
 			return { isValid: true, errorMessage: '' }
 		}
-		throw new Error(`${input as string} is not a valid input element or don't have validateRule`);
+		throw new Error('Is not a valid input element or dont have validateRule');
 	}
 }
 
