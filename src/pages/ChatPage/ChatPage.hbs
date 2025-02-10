@@ -1,4 +1,44 @@
-<main class=''>
-    {{> NavBar}}
-    ChatPage
+<main class='page chat-page'>
+    {{{NavBar}}}
+	<section class='chat-page-chat-list'>
+		{{{ChatCards}}}
+	</section>
+	<section class='chat-page-section'>
+		<div class="chat-page-section-header">
+			<div class="chat-page-avatar">
+				<img src='{{src}}' class='image' alt='Аватар'>
+				<h2 class="paragraph card-name">Андрей</h2>
+			</div>
+			<img src='./icon-vertical-dots.svg' class='chat-page-menu' alt='Аватар'>
+		</div>
+		<div class="chat-page-section-footer">
+			<img src='./icon-clip.svg' class='chat-page-menu' alt='Аватар'>
+			<div class='input-wrapper {{className}}'>
+				<input
+					type='{{type}}'
+					class='input {{className}}'
+					name='{{name}}'
+					value='{{value}}'
+					placeholder=''
+					id='{{id}}'
+					autocomplete='off'
+					{{#if disabled}}
+					readonly
+					{{/if}}
+				>
+				{{#if label}}
+					<label class='label {{className}}' for='{{id}}'>
+						<span class='label__text {{className}}'>{{label}}</span>
+					</label>
+				{{/if}}
+				{{#if errorMessage}}
+					<p class='errorMessage {{className}}'>
+						{{errorMessage}}
+					</p>
+				{{/if}}
+			</div>
+			<img src='./icon-right-arrow.svg' class='chat-page-menu' alt='Аватар'>
+		</div>
+	</section>
 </main>
+

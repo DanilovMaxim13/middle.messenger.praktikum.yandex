@@ -3,9 +3,9 @@ import postcssNested from 'postcss-nested';
 import postcssPresetEnv from 'postcss-preset-env';
 
 export default {
-    plugins: [
-        postcssNested(),
-        postcssPresetEnv(),
-        autoprefixer(),
-    ],
+	plugins: [
+		postcssNested(),
+		postcssPresetEnv(),
+		autoprefixer(),
+	],
 };

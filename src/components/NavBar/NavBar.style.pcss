@@ -1,20 +1,17 @@
 .navigation-bar {
+    left: 50%;
     position: absolute;
     top: 15px;
-    left: 50%;
     transform: translateX(-50%);
 
     &__list {
+        background-color: var(--primary-background-color);
+        border-radius: 20px;
+        box-shadow: 0 0 6px 0 var(--border-shadow);
         display: flex;
         gap: 25px;
-
+        list-style: none;
         margin: 0;
         padding: 20px;
-
-        background-color: var(--primaryBackgroundColor);
-        border-radius: 20px;
-        box-shadow: 0 0 6px 0 var(--borderShadow);
-
-        list-style: none;
     }
 }

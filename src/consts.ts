@@ -1,6 +1,6 @@
 export const SIGN_IN_PAGE_DATA = {
     title: 'Вход',
-    inputs: [
+    Inputs: [
         {
             id: 'login',
             label: 'Логин',
@@ -12,20 +12,15 @@ export const SIGN_IN_PAGE_DATA = {
             label: 'Пароль',
             name: 'password',
             type: 'password',
-        }
+        },
     ],
-    button: {
-        text: 'Войти'
-    },
-    link: {
-        href: '#',
-        linkLabel: 'Нет аккаунта?'
-    }
+    buttonText: 'Войти',
+    linkText: 'Нет аккаунта?',
 };
 
 export const SIGN_UP_PAGE_DATA = {
     title: 'Регистрация',
-    inputs: [
+    Inputs: [
         {
             id: 'email',
             label: 'Почта',
@@ -63,23 +58,18 @@ export const SIGN_UP_PAGE_DATA = {
             type: 'password',
         },
         {
-            id: 'password',
+            id: 'repeat_password',
             label: 'Пароль (еще раз)',
-            name: 'password',
+            name: 'repeat_password',
             type: 'password',
-        }
+        },
     ],
-    button: {
-        text: 'Зарегистрироваться'
-    },
-    link: {
-        href: '#',
-        linkLabel: 'Уже есть аккаунт?'
-    }
+    buttonText: 'Зарегистрироваться',
+    linkText: 'Уже есть аккаунт?',
 };
 
 export const PROFILE_PAGE_DATA = {
-    inputs: [
+    Inputs: [
         {
             id: 'email',
             label: 'Почта',
@@ -117,10 +107,28 @@ export const PROFILE_PAGE_DATA = {
             disabled: true,
         },
     ],
+    Links: [
+        {
+            href: '#',
+            className: 'page-link profile-section__link',
+            linkLabel: 'Изменить данные',
+        },
+        {
+            href: '#',
+            className: 'page-link profile-section__link',
+            linkLabel: 'Изменить пароль',
+        },
+        {
+            href: '#',
+            className:
+                'page-link profile-section__link profile-section__link_red',
+            linkLabel: 'Выйти',
+        },
+    ],
 };
 
 export const EDIT_PROFILE_PAGE_DATA = {
-    inputs: [
+    Inputs: [
         {
             id: 'email',
             label: 'Почта',
@@ -164,11 +172,11 @@ export const EDIT_PROFILE_PAGE_DATA = {
             value: '+7 (909) 967 30 30',
         },
     ],
-    isEditing: true,
+    buttonText: 'Сохранить',
 };
 
 export const EDIT_PASSWORD_PAGE_DATA = {
-    inputs: [
+    Inputs: [
         {
             id: 'oldPassword',
             label: 'Старый пароль',
@@ -188,5 +196,5 @@ export const EDIT_PASSWORD_PAGE_DATA = {
             type: 'password',
         },
     ],
-    isEditing: true,
+    buttonText: 'Сохранить',
 };
