@@ -6,13 +6,17 @@ import './Avatar.style.pcss';
 interface AvatarProps {
     src: string;
     className?: string;
+    onClick?: (e: MouseEvent) => void;
 }
 
-export default class Avatar extends Block<AvatarProps> {
-    constructor({ src, className }: AvatarProps) {
+export default class Avatar extends Block {
+    constructor({ src, className, onClick }: AvatarProps) {
         super({
             src,
             className,
+            events: {
+                click: (e: MouseEvent) => onClick && onClick(e),
+            },
         });
     }
 

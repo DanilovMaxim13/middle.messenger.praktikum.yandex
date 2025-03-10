@@ -4,19 +4,29 @@ import { ChatCardTemplate } from './index';
 import './ChatCard.style.pcss';
 
 export interface ChatCardProps {
-    srcAvatar: string;
-    name: string;
-    lastMessage: string;
+    avatar?: string;
+    name?: string;
+    lastMessage?: string;
     className?: string;
+    onClick?: any;
 }
 
-export default class ChatCard extends Block<ChatCardProps> {
-    constructor({ srcAvatar, name, lastMessage, className }: ChatCardProps) {
+export default class ChatCard extends Block {
+    constructor({
+        avatar,
+        name,
+        lastMessage,
+        className,
+        onClick,
+    }: ChatCardProps) {
         super({
-            srcAvatar,
+            avatar,
             name,
             lastMessage,
             className,
+            events: {
+                click: (e: MouseEvent) => onClick && onClick(e),
+            },
         });
     }
 

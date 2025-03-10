@@ -10,16 +10,7 @@ export interface LinkProps {
     onClick?: (e: MouseEvent) => void;
 }
 
-interface LinkBlockProps {
-    className?: string;
-    events: {
-        [key: string]: (e: MouseEvent) => void;
-    };
-    href: string;
-    linkLabel: string;
-}
-
-export default class Link extends Block<LinkBlockProps> {
+export default class Link extends Block {
     constructor({ href, className, linkLabel, onClick }: LinkProps) {
         super({
             href,
