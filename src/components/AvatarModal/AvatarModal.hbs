@@ -1,0 +1,14 @@
+<div class="avatar-modal {{className}}">
+	<div class="avatar-modal__body">
+		<p class="avatar-modal__title">{{title}}</p>
+		{{#if this.description}}
+			<p class="avatar-modal__description">{{description}}</p>
+		{{else}}
+			{{{ Input }}}
+		{{/if}}
+		<div class="avatar-modal__buttons">
+			{{{ ButtonSubmit }}}
+			{{{ ButtonClose }}}
+		</div>
+	</div>
+</div>

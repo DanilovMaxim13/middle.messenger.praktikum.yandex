@@ -2,11 +2,11 @@ import EventBus from './EventBus';
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 
-type Children = Record<string, Block<any>>;
-type Lists = Record<string, Block<any>[]>;
+type Children = Record<string, Block>;
+type Lists = Record<string, Block[]>;
 type Attributes = Record<string, string>;
 
-class Block<Props extends Record<string, any>> {
+class Block {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -18,15 +18,15 @@ class Block<Props extends Record<string, any>> {
 
     private _element: HTMLElement | null = null;
 
-    private eventBus: () => EventBus;
+    protected eventBus: () => EventBus;
 
     children: Children;
 
     readonly lists: Lists;
 
-    readonly props: Props;
+    readonly props: Record<string, any>;
 
-    constructor(propsAndChildren: Props) {
+    constructor(propsAndChildren: Record<string, any>) {
         const { children, props, lists } = this.getChildren(propsAndChildren);
         const eventBus = new EventBus();
 
@@ -41,8 +41,11 @@ class Block<Props extends Record<string, any>> {
     }
 
     private getChildren(
-        propsAndChildren: Props & { children?: Children; lists?: Lists }
-    ): { children: Children; props: Props; lists: Lists } {
+        propsAndChildren: Record<string, any> & {
+            children?: Children;
+            lists?: Lists;
+        }
+    ): { children: Children; props: Record<string, any>; lists: Lists } {
         const children: Children = {};
         const props: any = {};
         const lists: Lists = {};
@@ -57,7 +60,7 @@ class Block<Props extends Record<string, any>> {
             }
         });
 
-        return { children, props: props as Props, lists };
+        return { children, props: props as Record<string, any>, lists };
     }
 
     private registerEvents(eventBus: EventBus): void {
@@ -119,7 +122,10 @@ class Block<Props extends Record<string, any>> {
         this._render();
     }
 
-    componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    componentDidUpdate(
+        oldProps: Record<string, any>,
+        newProps: Record<string, any>
+    ): boolean {
         console.debug(this, oldProps, newProps);
         return true;
     }
@@ -142,7 +148,7 @@ class Block<Props extends Record<string, any>> {
         });
     }
 
-    public setProps = (nextProps: Props): void => {
+    public setProps = (nextProps: Record<string, any>): void => {
         if (!nextProps) {
             return;
         }
@@ -228,7 +234,7 @@ class Block<Props extends Record<string, any>> {
         return this._element;
     }
 
-    private makePropsProxy<T extends Props | Lists>(props: T): T {
+    private makePropsProxy<T extends Record<string, any> | Lists>(props: T): T {
         return new Proxy(props, {
             get: (target, prop: string) => {
                 const value = target[prop];

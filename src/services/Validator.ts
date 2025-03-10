@@ -40,15 +40,17 @@ class Validator {
         if (input instanceof HTMLInputElement) {
             let isValid;
 
-			if (input?.id && Validator.rulesRegex[input.id]) {
-                isValid = Validator.rulesRegex[input.id].regex.test(input.value);
+            if (input?.id && Validator.rulesRegex[input.id]) {
+                isValid = Validator.rulesRegex[input.id].regex.test(
+                    input.value
+                );
                 return {
                     isValid,
                     errorMessage: isValid
                         ? ''
                         : Validator.rulesRegex[input.id].errorMessage,
                 };
-			}
+            }
 
             return { isValid: true, errorMessage: '' };
         }
@@ -56,16 +58,25 @@ class Validator {
         throw new Error('Произошла ошибка!');
     }
 
-	getFormData (component: any): any {
-		if (component instanceof Input && component.element && component.element instanceof HTMLInputElement) {
-			return {name: component.element.name, value: component.element.value};
-		}
+    getFormData(component: any): any {
+        if (
+            component instanceof Input &&
+            component.element &&
+            component.element instanceof HTMLInputElement
+        ) {
+            return {
+                name: component.element.name,
+                value: component.element.value,
+            };
+        }
 
-		if (component instanceof Label) {
-			return this.getFormData(component.children[Object.keys(component.children)[0]])
-		}
-		return null;
-	}
+        if (component instanceof Label) {
+            return this.getFormData(
+                component.children[Object.keys(component.children)[0]]
+            );
+        }
+        return null;
+    }
 }
 
 export default new Validator();

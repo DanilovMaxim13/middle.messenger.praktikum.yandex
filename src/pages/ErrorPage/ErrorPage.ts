@@ -1,28 +1,36 @@
 import Block from '../../services/Block';
 
 import Link from '../../components/Link';
-import { default as NavBarComp } from '../../components/NavBar';
 
 import { ErrorPageTemplate } from './index';
 import './ErrorPage.style.pcss';
+import router from '../../services/Router';
+import store from '../../services/Store';
 
 interface ErrorPageProps {
     errorCode: string;
     errorDescription: string;
-    NavBar: NavBarComp;
 }
 
-export default class ErrorPage extends Block<ErrorPageProps & { Link: Link }> {
-    constructor({ errorCode, errorDescription, NavBar }: ErrorPageProps) {
+export default class ErrorPage extends Block {
+    constructor({ errorCode, errorDescription }: ErrorPageProps) {
         super({
             Link: new Link({
                 href: '#',
+                onClick: e => {
+                    e.preventDefault();
+                    console.log(1);
+                    router.go('/register');
+                },
                 linkLabel: 'Вернуться к чатам',
             }),
-            NavBar,
             errorCode,
             errorDescription,
         });
+    }
+
+    componentDidMount() {
+        console.log(store.getState().user);
     }
 
     render() {
