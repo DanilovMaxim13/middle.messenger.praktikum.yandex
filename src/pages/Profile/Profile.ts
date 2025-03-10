@@ -1,4 +1,3 @@
-//@ts-nocheck
 import Block from '../../services/Block';
 
 import Avatar from '../../components/Avatar';
@@ -10,7 +9,7 @@ import Link, { LinkProps } from '../../components/Link';
 import { ProfileTemplate } from './index';
 import './Profile.style.pcss';
 import store from '../../services/Store';
-import authApi from '../../api/AuthApi';
+import authApi, { IUserData } from '../../api/AuthApi';
 import router from '../../services/Router';
 import { connect } from '../../services/HOC';
 import Validator from '../../services/Validator';
@@ -20,7 +19,7 @@ interface ProfileProps {
     Inputs: InputProps[];
     Links?: LinkProps[];
     buttonText?: string;
-    buttonOnClick?: () => void;
+    buttonOnClick?: (data: any) => void;
 }
 
 class Profile extends Block {
@@ -54,7 +53,9 @@ class Profile extends Block {
                           const isFormValid = this.checkFormValidity();
 
                           if (isFormValid) {
-                              buttonOnClick(data);
+							  if (buttonOnClick) {
+								  buttonOnClick(data);
+							  }
                           }
                       },
                   })
@@ -88,8 +89,9 @@ class Profile extends Block {
     componentDidMount() {
         if (!store.getState().user) {
             void authApi.getUser().then(data => {
-                if (data.status === 200) {
-                    const userData = JSON.parse(data.responseText);
+				const { status, responseText } = data as XMLHttpRequest;
+                if (status === 200) {
+                    const userData = JSON.parse(responseText);
                     store.set('user', userData);
 
                     this.lists.Inputs.forEach(item => {
@@ -109,7 +111,7 @@ class Profile extends Block {
             const user = store.getState().user as IUserData;
 
             this.lists.Inputs.forEach(item => {
-                const id = item.children.Input.props.id;
+                const id = item.children.Input.props.id as keyof IUserData;
                 item.children.Input.setProps({ value: user[id] });
             });
             this.children.Avatar.setProps({
