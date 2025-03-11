@@ -39,7 +39,7 @@ export default class Modal extends Block {
             Input: new Label({
                 id: 'avatar',
                 className: 'modal__',
-                onChange: (e: InputEvent) => {
+                onChange: (e: any) => {
                     this.inputValue = e.target?.value;
                 },
             }),
