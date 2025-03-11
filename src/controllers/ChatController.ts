@@ -98,7 +98,7 @@ class ChatController {
     public async chatWebSocket(chatId: number) {
         const token = await this.getToken(chatId);
         const user: IUserData = store.getState()?.user as IUserData;
-        console.log(store);
+
         const userId: number = user.id;
         this.socket = new WebSocket(
             `wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`

@@ -1,8 +1,6 @@
 import { HTTPTransport } from '../services/HTTPTransport';
 import { BaseAPI } from './BaseApi';
 
-const authAPIInstance = new HTTPTransport();
-
 export interface ISignInData {
     login: string;
     password: string;
@@ -30,16 +28,18 @@ export interface IUserData {
 }
 
 class AuthAPI extends BaseAPI {
+    private http = new HTTPTransport();
+
     signIn(userData: ISignInData) {
-        return authAPIInstance.post('/auth/signin', { data: userData });
+        return this.http.post('/auth/signin', { data: userData });
     }
 
     signUp(userData: ISignUpData) {
-        return authAPIInstance.post('/auth/signup', { data: userData });
+        return this.http.post('/auth/signup', { data: userData });
     }
 
     getUser() {
-        return authAPIInstance.get('/auth/user');
+        return this.http.get('/auth/user');
     }
 }
 
