@@ -13,6 +13,9 @@ import Avatar from '../../components/Avatar';
 import { connect } from '../../services/HOC';
 import authController from '../../controllers/AuthController';
 import Messages from '../../components/Messages';
+import Modal from '../../components/Modal';
+import Button from '../../components/Button';
+import Tools from '../../components/Tools';
 
 class MessengerPage extends Block {
     constructor() {
@@ -35,6 +38,14 @@ class MessengerPage extends Block {
                 onClick: (e: MouseEvent) => {
                     e.preventDefault();
                     router.go('/settings');
+                },
+            }),
+            CreateChatButton: new Button({
+                text: 'Создать чат',
+                onClick: () => {
+                    this.children.CreateChatModal.setProps({
+                        className: '',
+                    });
                 },
             }),
             ChatCards: [],
@@ -66,6 +77,34 @@ class MessengerPage extends Block {
                 },
             }),
             Messages: new Messages({}),
+            Tools: new Tools({ className: 'tools_hidden' }),
+            ToolsIcon: new Avatar({
+                src: './icon-vertical-dots.svg',
+                className: 'messenger__icon-tools',
+                onClick: (e: MouseEvent) => {
+                    e.preventDefault();
+                    if (!!this.children.Tools.props.className) {
+                        this.children.Tools.setProps({ className: '' });
+                    } else {
+                        this.children.Tools.setProps({
+                            className: 'tools_hidden',
+                        });
+                    }
+                },
+            }),
+            CreateChatModal: new Modal({
+                title: 'Создание чата',
+                buttonText: 'Создать чат',
+                className: 'modal_hidden',
+                buttonOnClick: (e: MouseEvent, value: string) => {
+                    e.preventDefault();
+                    if (value) {
+                        void chatController.createChat(value).then(() => {
+                            void this.getChats();
+                        });
+                    }
+                },
+            }),
         });
 
         void this.getChats();
@@ -74,7 +113,7 @@ class MessengerPage extends Block {
     async getChats() {
         await chatController.getUserChats().then(() => {
             const chats = store.getState().chats as any[];
-            console.log(chats);
+
             this.lists.ChatCards = chats.map((item, index) => {
                 return new ChatCard({
                     avatar: item.avatar || './AddAvatar.png',
@@ -89,6 +128,10 @@ class MessengerPage extends Block {
                         );
                         this.lists.ChatCards[index].setProps({
                             className: 'active',
+                        });
+                        this.children.Tools = new Tools({
+                            currentChatId: item.id,
+                            className: 'tools_hidden',
                         });
                         this.setProps({ title: item.title });
                     },

@@ -12,7 +12,6 @@ export default class Messages extends Block {
     constructor({ messages }: MessagesProps) {
         super({
             Messages: messages?.map(item => {
-                console.log(item);
                 return new Message({
                     message: item.content,
                     time: item.time,

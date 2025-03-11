@@ -1,42 +1,42 @@
 import { HTTPTransport } from '../services/HTTPTransport';
 import { BaseAPI } from './BaseApi';
 
-const chatAPIInstance = new HTTPTransport();
-
 class ChatAPI extends BaseAPI {
+    private http = new HTTPTransport();
+
     getChats() {
-        return chatAPIInstance.get('/chats');
+        return this.http.get('/chats');
     }
 
     create(title: string) {
-        return chatAPIInstance.post('/chats', { data: { title } });
+        return this.http.post('/chats', { data: { title } });
     }
 
     getToken(chatId: number) {
-        return chatAPIInstance.post(`/chats/token/${chatId}`);
+        return this.http.post(`/chats/token/${chatId}`);
     }
 
     setChatAvatar(formData: FormData) {
-        return chatAPIInstance.put('/chats/avatar', { data: formData });
+        return this.http.put('/chats/avatar', { data: formData });
     }
 
     searchUser(login: string) {
-        return chatAPIInstance.post('/user/search', { data: { login: login } });
+        return this.http.post('/user/search', { data: { login: login } });
     }
 
     addRemoveUsers(chatId: number, users: number[], add: boolean) {
         if (add) {
-            return chatAPIInstance.put('/chats/users', {
+            return this.http.put('/chats/users', {
                 data: { chatId, users },
             });
         }
-        return chatAPIInstance.delete('/chats/users', {
+        return this.http.delete('/chats/users', {
             data: { chatId, users },
         });
     }
 
     delete(chatId: number) {
-        return chatAPIInstance.delete('/chats', { data: { chatId } });
+        return this.http.delete('/chats', { data: { chatId } });
     }
 }
 

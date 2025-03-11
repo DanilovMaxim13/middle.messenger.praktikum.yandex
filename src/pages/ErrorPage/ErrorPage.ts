@@ -19,7 +19,6 @@ export default class ErrorPage extends Block {
                 href: '#',
                 onClick: e => {
                     e.preventDefault();
-                    console.log(1);
                     router.go('/register');
                 },
                 linkLabel: 'Вернуться к чатам',

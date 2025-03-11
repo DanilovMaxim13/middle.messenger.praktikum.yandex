@@ -1,8 +1,6 @@
 import { HTTPTransport } from '../services/HTTPTransport';
 import { BaseAPI } from './BaseApi';
 
-const profileAPIInstance = new HTTPTransport();
-
 export interface IProfile {
     first_name: string;
     second_name: string;
@@ -13,6 +11,8 @@ export interface IProfile {
     [index: string]: string;
 }
 class ProfileAPI extends BaseAPI {
+    private http = new HTTPTransport();
+
     update({
         first_name,
         second_name,
@@ -21,7 +21,7 @@ class ProfileAPI extends BaseAPI {
         email,
         phone,
     }: IProfile) {
-        return profileAPIInstance.put('/user/profile', {
+        return this.http.put('/user/profile', {
             data: {
                 first_name,
                 second_name,
@@ -34,19 +34,19 @@ class ProfileAPI extends BaseAPI {
     }
 
     updatePassword(oldPassword: string, newPassword: string) {
-        return profileAPIInstance.put('/user/password', {
+        return this.http.put('/user/password', {
             data: { oldPassword, newPassword },
         });
     }
 
     updateAvatar(formData: FormData) {
-        return profileAPIInstance.put('/user/profile/avatar', {
+        return this.http.put('/user/profile/avatar', {
             data: formData,
         });
     }
 
     logout() {
-        return profileAPIInstance.post('/auth/logout');
+        return this.http.post('/auth/logout');
     }
 }
 

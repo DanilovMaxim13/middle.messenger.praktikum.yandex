@@ -53,9 +53,10 @@ class Profile extends Block {
                           const isFormValid = this.checkFormValidity();
 
                           if (isFormValid) {
-							  if (buttonOnClick) {
-								  buttonOnClick(data);
-							  }
+                              if (buttonOnClick) {
+                                  buttonOnClick(data);
+                                  store.set('user', data);
+                              }
                           }
                       },
                   })
@@ -89,7 +90,7 @@ class Profile extends Block {
     componentDidMount() {
         if (!store.getState().user) {
             void authApi.getUser().then(data => {
-				const { status, responseText } = data as XMLHttpRequest;
+                const { status, responseText } = data as XMLHttpRequest;
                 if (status === 200) {
                     const userData = JSON.parse(responseText);
                     store.set('user', userData);
