@@ -81,7 +81,7 @@ export default class Tools extends Block {
                                 .addRemoveUsers(
                                     currentChatId as number,
                                     usersId,
-                                    true
+                                    false
                                 )
                                 .then(status => {
                                     if (!status || status !== 'OK') {
