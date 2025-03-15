@@ -7,9 +7,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "start": "vite build && node server.cjs",
+    "start": "vite build && vite preview --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint \"**/*.pcss\"",
@@ -37,7 +36,7 @@
     "stylelint-order": "^6.0.4",
     "ts-jest": "^29.2.6",
     "typescript": "^5.7.3",
-    "vite": "^6.0.7"
+    "vite": "^6.2.2"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
