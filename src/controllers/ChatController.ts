@@ -107,6 +107,7 @@ class ChatController {
         this.socket.addEventListener('open', () => {
             console.log('Соединение установлено');
             void this.getMessages();
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             ping = setInterval(() => this.sendMessage('', 'ping'), 60000);
         });
 
