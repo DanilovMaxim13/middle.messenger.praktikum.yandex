@@ -1,4 +1,4 @@
-import Block from './Block';
+import Block from '../Block';
 
 interface RouteProps {
     rootQuery: string;
@@ -52,7 +52,7 @@ class Route {
     }
 }
 
-class Router {
+export class Router {
     private routes: Route[] = [];
 
     private history: History = window.history;
