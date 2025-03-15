@@ -16,11 +16,23 @@ export interface LabelProps {
     value?: string;
     errorMessage?: string;
     Input?: Input;
+    validate?: boolean;
+    onChange?: (e: InputEvent) => void;
 }
 
-export default class Label extends Block<LabelProps> {
+export default class Label extends Block {
     constructor(props: LabelProps) {
-        const { type, className, name, value, id, disabled, label } = props;
+        const {
+            type,
+            className,
+            name,
+            value,
+            id,
+            disabled,
+            label,
+            validate,
+            onChange,
+        } = props;
         super({
             Input: new Input({
                 className,
@@ -32,33 +44,37 @@ export default class Label extends Block<LabelProps> {
                 onBlur: () => {
                     this.isValid();
                 },
+                onChange,
             }),
             label,
             className,
             id,
             errorMessage: '',
+            validate,
         });
     }
 
     isValid(): boolean {
-		const validationResult = Validator.isValid(this.children.Input.element);
+        if (!this.props.validate) return true;
+
+        const validationResult = Validator.isValid(this.children.Input.element);
         if (!validationResult.isValid) {
             this.setProps({
                 ...this.props,
-                className: 'validate-error',
+                className: `${this.props.className} validate-error`,
                 errorMessage: validationResult.errorMessage,
-            })
+            });
 
-			return false;
+            return false;
         }
 
-		this.setProps({
-			...this.props,
-			className: '',
-			errorMessage: '',
-		});
+        this.setProps({
+            ...this.props,
+            className: this.props.className?.replaceAll(' validate-error', ''),
+            errorMessage: '',
+        });
 
-		return true;
+        return true;
     }
 
     render() {

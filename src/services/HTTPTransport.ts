@@ -52,10 +52,12 @@ export class HTTPTransport {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             if (method) {
-                xhr.open(method, url);
+                xhr.open(method, `https://ya-praktikum.tech/api/v2${url}`);
             }
 
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            if (!(data instanceof FormData)) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            }
 
             xhr.onload = function () {
                 resolve(xhr);
@@ -64,11 +66,14 @@ export class HTTPTransport {
             xhr.onabort = reject;
             xhr.onerror = reject;
             xhr.ontimeout = reject;
+            xhr.withCredentials = true;
 
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {
-                xhr.send(JSON.stringify(data));
+                xhr.send(
+                    data instanceof FormData ? data : JSON.stringify(data)
+                );
             }
         });
     };

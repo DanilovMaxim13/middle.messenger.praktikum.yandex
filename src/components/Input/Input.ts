@@ -13,12 +13,13 @@ export interface InputProps {
     value?: string;
     onFocus?: (e: any) => void;
     onBlur?: (e: any) => void;
+    onChange?: (e: any) => void;
     events?: {
         [key: string]: (e: MouseEvent) => void;
     };
 }
 
-export default class Input extends Block<InputProps> {
+export default class Input extends Block {
     constructor({
         type,
         className,
@@ -29,6 +30,7 @@ export default class Input extends Block<InputProps> {
         label,
         onBlur,
         onFocus,
+        onChange,
     }: InputProps) {
         super({
             className,
@@ -41,6 +43,7 @@ export default class Input extends Block<InputProps> {
             events: {
                 blur: (e: Event) => onBlur && onBlur(e),
                 focus: (e: FocusEvent) => onFocus && onFocus(e),
+                change: (e: InputEvent) => onChange && onChange(e),
             },
         });
     }
