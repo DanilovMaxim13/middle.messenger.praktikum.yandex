@@ -5,7 +5,7 @@ interface RouteProps {
     props: any;
 }
 
-class Route {
+export class Route {
     private _pathname: string;
 
     private readonly _blockClass: typeof Block;
@@ -53,7 +53,7 @@ class Route {
 }
 
 export class Router {
-    private routes: Route[] = [];
+    routes: Route[] = [];
 
     private history: History = window.history;
 
@@ -84,7 +84,7 @@ export class Router {
         this._onRoute(window.location.pathname);
     }
 
-    private _onRoute(pathname: string): void {
+    _onRoute(pathname: string): void {
         const route = this.getRoute(pathname);
 
         if (!route) {

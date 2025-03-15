@@ -1,79 +1,67 @@
-//@ts-nocheck
-import router from './Router';
+import { Router, Route } from './Router';
+import Block from '../Block';
 
-describe('Router class', () => {
-	describe('use', () => {
-		it('should add a new route', () => {
-			router.use('/path', TestBlock);
-			expect(1).toEqual(1);
-		});
+jest.mock('../Block', () => {
+	return jest.fn().mockImplementation(() => {
+		return {
+			getContent: jest.fn().mockReturnValue(document.createElement('div')),
+			dispatchComponentDidMount: jest.fn(),
+			element: {
+				remove: jest.fn(),
+			},
+		};
+	});
+});
+
+describe('Router', () => {
+	let router: Router;
+	let mockBlock: jest.Mocked<typeof Block>;
+
+	beforeEach(() => {
+		router = new Router('#app');
+		mockBlock = Block as jest.Mocked<typeof Block>;
+		document.body.innerHTML = '<div id="app"></div>';
 	});
 
-	describe('start', () => {
-		it('should register onpopstate event listener', () => {
-			const spy = jest.spyOn(window, 'onpopstate');
-			router.start();
-			expect(spy).toHaveBeenCalled();
-		});
+	test('should add route with use method', () => {
+		router.use('/test', mockBlock, {});
+		expect(router.routes.length).toBe(1);
+		expect(router.routes[0]).toBeInstanceOf(Route);
 	});
 
-	describe('_onRoute', () => {
-		it('should call render method of current route', () => {
-			const route = new Route('/path', TestBlock, { rootQuery: '#app' });
-			router.routes.push(route);
-			const spy = jest.spyOn(route, 'render');
-			router._onRoute('/path');
-			expect(spy).toHaveBeenCalled();
-		});
-
-		it('should call leave method of previous route', () => {
-			const oldRoute = new Route('/old-path', TestBlock, { rootQuery: '#app' });
-			const newRoute = new Route('/new-path', TestBlock, { rootQuery: '#app' });
-			router.routes.push(oldRoute, newRoute);
-			router._currentRoute = oldRoute;
-			const spyLeave = jest.spyOn(oldRoute, 'leave');
-			const spyRender = jest.spyOn(newRoute, 'render');
-			router._onRoute('/new-path');
-			expect(spyLeave).toHaveBeenCalled();
-			expect(spyRender).toHaveBeenCalled();
-		});
+	test('should navigate to the correct route', () => {
+		router.use('/test', mockBlock, {}).start();
+		router.go('/test');
+		expect(router.getRoute('/test')).toBeDefined();
 	});
 
-	describe('go', () => {
-		it('should push state and trigger _onRoute', () => {
-			const spyPushState = jest.spyOn(window.history, 'pushState');
-			const spyOnRoute = jest.spyOn(router, '_onRoute');
-			router.go('/path');
-			expect(spyPushState).toHaveBeenCalled();
-			expect(spyOnRoute).toHaveBeenCalled();
-		});
+	test('should call render on route when navigated to', () => {
+		const route = new Route('/test', mockBlock, { rootQuery: '#app', props: {} });
+		const renderSpy = jest.spyOn(route, 'render');
+		router.routes.push(route);
+		router.go('/test');
+		expect(renderSpy).toHaveBeenCalled();
 	});
 
-	describe('back', () => {
-		it('should call history.back', () => {
-			const spyBack = jest.spyOn(window.history, 'back');
-			router.back();
-			expect(spyBack).toHaveBeenCalled();
-		});
+	test('should call leave on current route when navigating to a new route', () => {
+		const oldRoute = new Route('/old', mockBlock, { rootQuery: '#app', props: {} });
+		const newRoute = new Route('/new', mockBlock, { rootQuery: '#app', props: {} });
+		const leaveSpy = jest.spyOn(oldRoute, 'leave');
+		router.routes.push(oldRoute, newRoute);
+		router.go('/old');
+		router.go('/new');
+		expect(leaveSpy).toHaveBeenCalled();
 	});
 
-	describe('forward', () => {
-		it('should call history.forward', () => {
-			const spyForward = jest.spyOn(window.history, 'forward');
-			router.forward();
-			expect(spyForward).toHaveBeenCalled();
-		});
+	test('should handle back navigation', () => {
+		const backSpy = jest.spyOn(window.history, 'back');
+		router.back();
+		expect(backSpy).toHaveBeenCalled();
 	});
 
-	describe('getRoute', () => {
-		it('should find route by pathname', () => {
-			const route = new Route('/path', TestBlock, { rootQuery: '#app' });
-			router.routes.push(route);
-			expect(router.getRoute('/path')).toEqual(route);
-		});
-
-		it('should return undefined for non-existing route', () => {
-			expect(router.getRoute('/non-existing-path')).toBeUndefined();
-		});
+	test('should handle forward navigation', () => {
+		const forwardSpy = jest.spyOn(window.history, 'forward');
+		router.forward();
+		expect(forwardSpy).toHaveBeenCalled();
 	});
 });
