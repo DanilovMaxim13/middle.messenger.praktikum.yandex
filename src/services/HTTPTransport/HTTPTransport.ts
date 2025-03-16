@@ -1,4 +1,4 @@
-enum METHODS {
+export enum METHODS {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
@@ -14,7 +14,7 @@ type Options = {
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export class HTTPTransport {
-    private queryStringify = (data: Record<string, unknown>): string => {
+    queryStringify = (data: Record<string, unknown>): string => {
         return (
             '?' +
             Object.entries(data)

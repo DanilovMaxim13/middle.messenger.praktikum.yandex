@@ -1,4 +1,4 @@
-import { HTTPTransport } from '../services/HTTPTransport';
+import HTTPTransport from '../services/HTTPTransport';
 import { BaseAPI } from './BaseApi';
 
 export interface IProfile {

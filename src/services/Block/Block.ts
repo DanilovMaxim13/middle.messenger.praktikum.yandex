@@ -1,4 +1,4 @@
-import EventBus from './EventBus';
+import EventBus from '../EventBus';
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 
@@ -16,7 +16,7 @@ class Block {
 
     readonly id: string = makeUUID();
 
-    private _element: HTMLElement | null = null;
+    _element: HTMLElement | null = null;
 
     protected eventBus: () => EventBus;
 
@@ -168,7 +168,7 @@ class Block {
         return this._element;
     }
 
-    private _render(): void {
+    _render(): void {
         const propsAndStubs: any = { ...this.props };
         const tmpId = makeUUID();
 
